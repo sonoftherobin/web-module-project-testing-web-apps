@@ -3,7 +3,7 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import ContactForm from './ContactForm';
-let firstNameInput, lastNameInput,emailInput, submitButton
+let firstNameInput,lastNameInput, emailInput, submitButton
 beforeEach(() => {
 render (<ContactForm/>)
 firstNameInput = screen.getByPlaceholderText('Edd')
@@ -13,7 +13,7 @@ emailInput = screen.getByPlaceholderText('bluebill1049@hotmail.com')
 })
 
 test('renders without errors', () => {
-    const app = document.querySelector(".App")
+    const app = document.querySelector('.App')
     expect(app).toBeInTheDocument()
 
 });
@@ -30,7 +30,7 @@ test('renders the contact form header', () => {
 test('renders ONE error message if user enters less then 5 characters into firstname.', async () => {
     expect(firstNameInput).toBeInTheDocument()
     expect(firstNameInput).toBeVisible()
-    fireEvent.change(firstNameInput, {target:{value: "asfd"}})
+    fireEvent.change(firstNameInput, {target:{value: 'asfd'}})
     screen.getByText(/error/i)
    
 });
@@ -44,7 +44,7 @@ test('renders THREE error messages if user enters no values into any fields.', a
 });
 
 test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
-    fireEvent.change(firstNameInput, {target:{value: 'asfd'}})
+    fireEvent.change(firstNameInput, {target: {value: 'asfd'}})
     fireEvent.change(lastNameInput, {target: {value: 'Smith'}})
     screen.getByText(/error/i)
       
@@ -63,9 +63,9 @@ screen.getByText('Error: lastName is a required field.')
 });
 
 test('renders all firstName, lastName and email text when submitted. Does NOT render message if message is not submitted.', async () => {
-    fireEvent.change(firstNameInput,{target:{value:'Aaron'}})
-    fireEvent.change(lastNameInput,{target:{value:'Robinson'}})
-    fireEvent.change(emailInput,{target:{value:'sonoftherobin@gmail.com'}})
+    fireEvent.change(firstNameInput, {target: {value:'Aaron'}})
+    fireEvent.change(lastNameInput, {target: {value:'Robinson'}})
+    fireEvent.change(emailInput, {target: {value:'sonoftherobin@gmail.com'}})
     fireEvent.click(submitButton)
     screen.getByText('Aaron')
     screen.getByText('Robinson')
@@ -77,10 +77,10 @@ test('renders all firstName, lastName and email text when submitted. Does NOT re
 
 test('renders all fields text when all fields are submitted.', async () => {
 const messageInput = document.querySelector('#message')
-fireEvent.change(firstNameInput,{target:{value:'Aaron'}})
-fireEvent.change(lastNameInput,{target:{value:'Robinson'}})
-fireEvent.change(emailInput,{target:{value:'sonoftherobin@gmail.com'}})
-fireEvent.change(messageInput,{target:{value: "Pax Cristi"}})
+fireEvent.change(firstNameInput, {target: {value:'Aaron'}})
+fireEvent.change(lastNameInput, {target: {value:'Robinson'}})
+fireEvent.change(emailInput, {target: {value:'sonoftherobin@gmail.com'}})
+fireEvent.change(messageInput, {target: {value: "Pax Cristi"}})
 fireEvent.click(submitButton)
-screen.getByText('Aaron', 'Robinson','sonoftherobin@gmail.com', 'Pax cristi')
+screen.getByText('Aaron', 'Robinson', 'sonoftherobin@gmail.com', 'Pax cristi')
 });
